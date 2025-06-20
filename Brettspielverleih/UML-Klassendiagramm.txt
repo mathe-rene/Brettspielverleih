@@ -1,0 +1,87 @@
+@startuml
+skinparam classAttributeIconSize 0
+package model <<Folder>> {
+  
+    class "Kunden" as class1 {
+        -kundenId(int)
+        -name(String)
+        -email(String)
+        -password(String)
+        --
+        +getId()
+        +getName()
+        +setName()
+        +getMail()
+        +setMail()
+        +getPassword()
+        +setPassword()
+    }
+
+    class "Artikel" as class2 {
+        -artikelId(int)
+        -bezeichnung(String)
+        -kategorie(String)
+        -spielerzahl(String)
+        -alter(String)
+        -status(boolean)
+        --
+        +getId()
+        +getBezeichnung()
+        +setBezeichnung()
+        +getKategorie()
+        +setKategorie()
+        +getSpielerzahl()
+        +setSpielerzahl()
+        +getAlter()
+        +setAlter()
+        +getStatus()
+        +setStatus()
+    }
+
+    class "Verleihvorgang" as class3 {
+        -vorgangsId(int)
+        -kundenId(int)
+        -artikelId(int)
+        -verleihStart(Date)
+        -verleihEnde(Date)
+        -schadensmeldung(String)
+        --
+        +getVorgangsId()
+        +getVerleihStart()
+        +setVerleihstart()
+        +getVerleihEnde()
+        +setVerleihEnde()
+        +getSchadensmeldung()
+        +setSchadensmeldung()
+        +getArtikelId()
+        +getKundenId()
+    }   
+}
+package service <<Folder>> {    
+
+    class "KundeService" as class4 {
+        +registrieren()
+        +anmelden()
+        +kundeLöschen()
+        +getKundenListe()
+    }
+
+
+    class "ArtikelService" as class5 {
+        +artikelAnlegen()
+        +artikelBearbeiten()
+        +artikelLöschen()
+    }
+
+    class "VerleihvorgangServive" as class6 {
+        +verleihStart()
+        +verleihEnde()
+        +getÜberfälligeRückgaben()
+    }
+}
+
+package gui <<Folder>> {
+    class "MainFrame" as class7
+}
+
+@enduml

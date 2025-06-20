@@ -1,0 +1,11 @@
+User-Stories
+
+Als Admin möchte ich neue Spiele hinzufügen um das Portfolio zu erweitern
+Als Admin möchte ich bereits vorhandene Spiele bearbeiten um die Datenbank aktuell zu halten
+Als Admin möchte ich vorhandene Spiele und Kunden anzeigen um einen guten Überblick zu erhalten
+Als Admin möchte ich Kunden bearbeiten können um die Kundendaten aktuell zu halten
+
+Als Kunde möchte ich Spiele in einer Liste anzeigen um mir einen Überblick zu verschaffen
+Als Kunde möchte ich die Liste der Spiele mittels einiger Kriterien einschränken können um die Liste meinen Bedürfnissen anzupassen
+Als Kunde möchte ich verfügbare Spiele auswählen um sie ausleihen zu können 
+

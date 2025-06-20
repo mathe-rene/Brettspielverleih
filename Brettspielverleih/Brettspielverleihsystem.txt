@@ -1,0 +1,29 @@
+Brettspielverleihsystem
+
+Ziel:
+Ein System zur Verwaltung von Brettspielen, die an Kunden verliehen werden können
+
+Funktionen:
+Artikel anlegen (Bezeichnung, Kategorie, Spielerzahl, Alter, Verleih-Status)
+Verleihvorgang starten/beenden
+Rückgabe mit Schadensmeldung
+Anzeige überfälliger Rückgaben
+Historie pro Artikel/Kunde
+GUI mit Tabellenübersicht, Filter, Eingabemaske
+
+funktionale Anforderungen:
+der Kunde kann sich anmelden
+der Kunde kann sich eine Liste der Spiele nach seinen Suchkriterien anzeigen lassen
+der Kunde kann Spiele leihen
+
+der Administrator kann neue Spiele hinzufügen und bestehende Spiele ändern oder löschen
+der Administrator kann sich eine Liste der Spiele nach seinen Kriterien anzeigen lassen
+der Administrator kann Kunden hinzufügen/löschen
+
+
+nicht funktionale Anforderungen:
+
+eine Datenbank zum hinterlegen der Spiele und deren Eigenschaften
+ein Login für Kunden und Admin
+ein User-Interface (Kunde) für die Eingabe der Suchkriterien und die Anzeige der Spiele
+ein User-Interface (Admin) für die Eingabe der Suchkriterien und eine "Änderungs-Maske" zur Bearbeitung der Daten
