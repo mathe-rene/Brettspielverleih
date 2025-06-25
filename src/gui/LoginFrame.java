@@ -12,7 +12,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class LoginFrame extends JFrame {
+public class LoginFrame extends JDialog {
 
     private static final long serialVersionUID = 1L;
     private JTextField emailField;
@@ -21,9 +21,9 @@ public class LoginFrame extends JFrame {
     private Kunde kunde;
 
     public Kunde getKunde() {
-    	return this.kunde;
-    };
-    
+        return this.kunde;
+    }
+
     public LoginFrame(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         setTitle("Login");
@@ -43,7 +43,7 @@ public class LoginFrame extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.setKunde(loginUser()) ;
+                mainFrame.setKunde(loginUser());
             }
         });
         add(loginButton);
@@ -61,13 +61,21 @@ public class LoginFrame extends JFrame {
                 try (ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
                         JOptionPane.showMessageDialog(this, "Login erfolgreich!");
-                        // Benutzer zur Hauptanwendung weiterleiten
-                        mainFrame.showArticleSelection();
                         String name = rs.getString("Name");
-                        String mail = rs.getString("eMail");;
+                        String mail = rs.getString("eMail");
                         int id = rs.getInt("Kunden_Id");
-                        return new Kunde(name,mail, id);
-                        //                        dispose(); // LoginFrame schließen
+                        Kunde kunde = new Kunde(name, mail, id);
+                        if ("Chef".equals(name)) {
+                            // Admin-Panel öffnen, wenn der Chef sich anmeldet
+                            AdminFrame adminFrame = new AdminFrame(mainFrame);
+                            //mainFrame.dispose();
+                            //adminFrame.setVisible(true);
+                        } else {
+                            // Benutzer zur Hauptanwendung weiterleiten
+                            mainFrame.showArticleSelection();
+                        }
+                        dispose();
+                        return kunde;
                     } else {
                         JOptionPane.showMessageDialog(this, "Ungültige Anmeldedaten.");
                     }
@@ -77,7 +85,7 @@ public class LoginFrame extends JFrame {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Fehler beim Login.");
         }
-		return null;
+        return null;
     }
 
     public static void main(String[] args) {

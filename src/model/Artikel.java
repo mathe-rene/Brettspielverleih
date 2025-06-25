@@ -10,7 +10,7 @@ public class Artikel {
     private boolean status;
 
     // Konstruktor, Getter und Setter
-    public Artikel(String bezeichnung, String kategorie, String spielerzahl, String alter, String beschreibung, boolean status) {
+    public Artikel(int id, String bezeichnung, String kategorie, String spielerzahl, String alter, String beschreibung, boolean status) {
     	
     	this.bezeichnung = bezeichnung;
     	this.kategorie = kategorie;
@@ -18,6 +18,7 @@ public class Artikel {
     	this.alter = alter;
     	this.beschreibung = beschreibung;
     	this.status = status;
+    	this.artikelId = id;
     }
     
     

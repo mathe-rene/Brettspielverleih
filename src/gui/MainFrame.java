@@ -1,9 +1,8 @@
 package gui;
 
-import model.Artikel;
 import model.Kunde;
-import service.ArtikelService;
-import service.KundeService;
+//import service.ArtikelService;
+//import service.KundeService;
 import service.VerleihService;
 
 import javax.swing.*;
@@ -20,8 +19,8 @@ import java.util.List;
 
 public class MainFrame extends JFrame {
     private static final long serialVersionUID = 1L;
-    private ArtikelService artikelService = new ArtikelService();
-    private KundeService kundeService = new KundeService();
+    //private ArtikelService artikelService = new ArtikelService();
+    //private KundeService kundeService = new KundeService();
     private VerleihService verleihService = new VerleihService();
 
     DefaultTableModel tableModel;
@@ -29,6 +28,8 @@ public class MainFrame extends JFrame {
     private JPanel buttonPanel;
     private JButton confirmButton;
     private Kunde kunde;
+    private JRadioButton zweiWochen;
+    private JRadioButton vierWochen;
     
     public MainFrame() {
         setTitle("Brettspielverleih");
@@ -99,6 +100,15 @@ public class MainFrame extends JFrame {
         buttonPanel.add(registerButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
+        
+        // RadioButtons für Ausleihzeitraum hinzufügen, aber zunächst unsichtbar machen
+        zweiWochen = new JRadioButton("2 Wochen");
+        vierWochen = new JRadioButton("4 Wochen");
+        ButtonGroup zeitAuswahl = new ButtonGroup();
+        zeitAuswahl.add(zweiWochen);
+        zeitAuswahl.add(vierWochen);
+        zweiWochen.setVisible(false);
+        vierWochen.setVisible(false);
 
         // Button für Auswahl bestätigen hinzufügen, aber zunächst unsichtbar machen
         confirmButton = new JButton("Auswahl bestätigen");
@@ -110,12 +120,14 @@ public class MainFrame extends JFrame {
             }
         });
         buttonPanel.add(confirmButton);
-
+        buttonPanel.add(zweiWochen);
+        buttonPanel.add(vierWochen);
+        
         setVisible(true);
     }
 
     public void setKunde(Kunde k) {
-    	this.kunde = k;
+        this.kunde = k;
     };
     
     private void fillMenuFromDatabase(JMenu menu, String query) {
@@ -175,24 +187,48 @@ public class MainFrame extends JFrame {
             }
         }
         confirmButton.setVisible(true);
+        zweiWochen.setVisible(true);
+        vierWochen.setVisible(true);
     }
 
+    // Auswahl auswerten
     private void confirmSelection() {
         List<Integer> artikelIds = new ArrayList<>();
         for (int i = 0; i < artikelTable.getRowCount(); i++) {
             Boolean isSelected = (Boolean) artikelTable.getValueAt(i, 0);
             if (isSelected != null && isSelected) {
-                artikelIds.add(i); 
+                artikelIds.add(i);
             }
         }
 
+        if (artikelIds.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bitte wählen Sie mindestens einen Artikel aus.");
+            return;
+        }
+
+        int ausleihzeitraum;
+        if (zweiWochen.isSelected()) {
+            ausleihzeitraum = 2;
+        } else if (vierWochen.isSelected()) {
+            ausleihzeitraum = 4;
+        } else {
+            JOptionPane.showMessageDialog(this, "Bitte wählen Sie einen Ausleihzeitraum.");
+            return;
+        }
+
         // Kunden-ID dynamisch ermitteln
-        // System.out.print("KUNDEN MIT ID "+kunde.getKundenId()+"LEIHT SICH "+artikelIds.toArray().toString());
-        verleihService.auswahlBestätigen(artikelIds, kunde.getKundenId());
-        JOptionPane.showMessageDialog(this, "Auswahl bestätigt!");
+        verleihService.auswahlBestätigen(artikelIds, kunde.getKundenId(), ausleihzeitraum);
+        JOptionPane.showMessageDialog(this, "Auswahl gespeichert!");
+
+        // Häkchen aus den Checkboxen entfernen
+        for (int i = 0; i < artikelTable.getRowCount(); i++) {
+            artikelTable.setValueAt(false, i, 0);
+        }
     }
 
-   
+
+
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
     }

@@ -10,10 +10,6 @@ public class Kunde {
         this.name = name;
         this.email = email;
         this.kundenId= id;
-//    	System.out.println("Kunde erstellt  id gesetzt "+ id);
-//    	System.out.println("Kunde erstellt  name gesetzt "+ name);
-//    	System.out.println("Kunde erstellt  mail gesetzt "+ email);
-
     }
 
     // Getter und Setter

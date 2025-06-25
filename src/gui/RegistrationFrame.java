@@ -38,6 +38,7 @@ public class RegistrationFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 registerUser();
+                dispose();
             }
         });
         add(registerButton);
